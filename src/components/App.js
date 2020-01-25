@@ -4,10 +4,13 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            title: ''
         }
     }
 
     componentDidMount() {
+        const title = 'Hello world'
+        this.setState({ title })
     }
 
     // componentDidUpdate(_, prevState) {
@@ -16,9 +19,10 @@ export default class App extends Component {
 
 
     render() {
-        return h('div', {class: 'app-view'},
-            h('div', {class: 'main-view'},
-                h('p', {id: 'title'}, 'Hello world')
+        const { title } = this.state
+        return h('div', { class: 'app-view' },
+            h('div', { class: 'main-view' },
+                h('p', { id: 'title' }, title)
             )
         )
     }
