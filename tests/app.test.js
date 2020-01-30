@@ -29,9 +29,9 @@ describe('App', () => {
                         const expected = true
                         assert.equal(actual, expected)
                     })
-                    it('should have text "Welcome to TeaHouse!"', () => {
+                    it('should have text "Welcome to Teahouse Go!"', () => {
                         const actual = wrapper.find('#title').text()
-                        const expected = 'Welcome to Teahouse!'
+                        const expected = 'Welcome to Teahouse Go!'
                         assert.equal(actual, expected)
                     })
                 })
@@ -47,9 +47,9 @@ describe('App', () => {
                             const expected = true
                             assert.equal(actual, expected)
                         })
-                        it('should have placeholder "User Name"', () => {
+                        it('should have placeholder "Your Name"', () => {
                             const actual = wrapper.find('#userName').prop('placeholder')
-                            const expected = 'User Name'
+                            const expected = 'Your Name'
                             assert.equal(actual, expected)
                         })
                         it('should have value state.userName', () => {
@@ -120,43 +120,113 @@ describe('App', () => {
                     const expected = true
                     assert.equal(actual, expected)
                 })
-                it('should show the userName', () => {
-                    const userName = 'thegreatxxx'
-                    wrapper.setState({ userName })
-                    const actual = wrapper.find('#lobby').text()
-                    const expected = userName
-                    assert.include(actual, expected)
+                describe('Logout Button', () => {
+                    it('should have id #logout', () => {
+                        const actual = wrapper.exists('#logoutButton')
+                        const expected = true
+                        assert.equal(actual, expected)
+                    })
+                    
                 })
-                it('should show the rank', () => {
-                    const userRank = '2p'
-                    wrapper.setState({ userRank })
-                    const actual = wrapper.find('#lobby').text()
-                    const expected = userRank
-                    assert.include(actual, expected)
+                describe('Chat', () => {
+                    it('should have an input field #chatInput', () => {
+                        const actual = wrapper.exists('#chatInput')
+                        const expected = true
+                        assert.equal(actual, expected)
+                    })
+                    it('should have a div #chatLog', () => {
+                        const actual = wrapper.exists('#chatLog')
+                        const expected = true
+                        assert.equal(actual, expected)
+                    })
+                    it('should use state.chatLog in chatlog', () => {
+                        const chatLog = [{ chatContent: 'Hello', userName: 'Me' }]
+                        wrapper.setState({ chatLog })
+                        const actual = wrapper.find('#chatLog').text()
+                        const expected = 'Hello'
+                        assert.include(actual, expected)
+                    })
+                    it('should set state.chatContent on input', () => {
+                        const onInput = wrapper.find('#chatInput').prop('onInput')
+                        onInput({ currentTarget: { value: 'hi' } })
+                        const actual = wrapper.state('chatContent')
+                        const expected = 'hi'
+                        assert.equal(actual, expected)
+
+                    })
                 })
             })
             
         })
     })
     describe('Class Methods', () => {
-        it('should have handleSubmit', () => {
-            const actual = (wrapper.instance().handleSubmit)
-            assert.exists(actual)
+        describe('handleLogin', () => {
+            it('should exist', () => {
+                const actual = (wrapper.instance().handleLogin)
+                assert.exists(actual)
+            })
+            it('should call preventdefault', () => {
+                const spy = jest.fn()
+                wrapper.instance().handleLogin({ preventDefault: spy })
+                const actual = spy.mock.calls.length
+                const expected = 1
+                assert.equal(actual, expected)
+                
+            })
+            it('should set userName to "Guest" when userName is empty', () => {
+                wrapper.setState({ userName: '' })
+                wrapper.instance().handleLogin({ preventDefault: () => {} })
+                const actual = wrapper.state('userName')
+                const expected = 'Guest'
+                assert.equal(actual, expected)
+            })   
+            it('should set userRank to ?? when userRank is empty', () => {
+                wrapper.setState({ userRank: '' })
+                wrapper.instance().handleLogin({ preventDefault: () => {} })
+                const actual = wrapper.state('userRank')
+                const expected = '??'
+                assert.equal(actual, expected)
+            })   
+            it('should set visiblePage to lobby', () => {
+                wrapper.instance().handleLogin({ preventDefault: () => {} })
+                const actual = wrapper.state('visiblePage')
+                const expected = 'lobby'
+                assert.equal(actual, expected)
+            })
         })
-        it('should call preventdefault', () => {
-            const spy = jest.fn()
-            wrapper.instance().handleSubmit({ preventDefault: spy })
-            const actual = spy.mock.calls.length
-            const expected = 1
-            assert.equal(actual, expected)
-            
+        describe('handleLogout', () => {
+            it('should exist', () => {
+                const actual = (wrapper.instance().handleLogout)
+                assert.exists(actual)
+            })
+            it('should set visiblePage to "loginPage"', () => {
+                wrapper.setState({ visiblePage: 'lobby' })
+                wrapper.instance().handleLogout()
+                const actual = wrapper.state('visiblePage')
+                const expected = 'loginPage'
+                assert.equal(actual, expected)
+            })   
         })
-        it('should set visiblePage to lobby', () => {
-            wrapper.instance().handleSubmit({ preventDefault: () => {} })
-            const actual = wrapper.state('visiblePage')
-            const expected = 'lobby'
-            assert.equal(actual, expected)
+        describe('sendMessage', () => {
+            it('should exist', () => {
+                const actual = (wrapper.instance().sendMessage)
+                assert.exists(actual)
+            })
+            it('should call preventdefault', () => {
+                const spy = jest.fn()
+                wrapper.instance().sendMessage({ preventDefault: spy })
+                const actual = spy.mock.calls.length
+                const expected = 1
+                assert.equal(actual, expected)
+                
+            })
+            // it('should set append chatContent to chatLog', () => {
+            //     wrapper.setState({ chatContent: 'hi' })
+            //     wrapper.instance().sendMessage({ preventDefault: () => {} })
+            //     const actual = wrapper.state('chatLog')[0]
+            //     const expected = 'hi'
+            //     assert.equal(actual, expected)
+            // })   
         })
-    })
-    
+    })  
 })

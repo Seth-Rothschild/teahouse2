@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack --progress --mode production",
     "watch": "webpack --progress --mode development --watch",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "jest": {
     "transform": {
@@ -23,25 +23,28 @@
     "baduk"
   ],
   "author": "Seth Rothschild",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "bugs": {
     "url": "https://github.com/seth-rothschild/teahouse2/issues"
   },
   "homepage": "https://github.com/seth-rothschild/teahouse2",
   "dependencies": {
-    "preact": "^8.5.1"
+    "preact": "^8.5.1",
+    "signalhub": "^4.9.0",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "eslint-plugin-jest": "^23.6.0",
-    "eslint-plugin-react": "^7.18.0",
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
     "babel-preset-preact": "^2.0.0",
     "chai": "^4.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^2.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-react": "^7.18.0",
     "jest": "^25.1.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6"

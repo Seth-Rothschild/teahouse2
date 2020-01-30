@@ -1,0 +1,202 @@
+/* * {
+    border: 1px solid red
+} */
+
+body {
+    background-image: url("../bg.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: rgb(107, 133, 151);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+#loginPage {
+    background-color:rgba(3, 63, 50, 0.7);
+    width: 400px;
+    margin: 100px auto 0px auto;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid white
+}
+
+
+#loginForm {
+    width: 200px;
+    margin: auto;
+    height: 150px;
+}
+
+#title {
+    text-align: center;
+    color: white;
+
+}
+
+#userName {
+    height: 25px;
+    width: 180px;
+    margin: 5px;
+    border-radius: 3px;
+    border: 2px solid white;
+}
+
+#userRank {
+    height: 25px;
+    width: 180px;
+    margin: 5px;
+    border-radius: 3px;
+    border: 2px solid white;
+}
+
+#loginButton {
+    width: 80px;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 60px;
+    border-radius: 3px;
+    color: white;
+    background-color: rgb(128, 128, 128, .3); 
+    transition: all .05s ease-in-out; 
+}
+
+
+
+#loginButton:hover {
+    background-color: rgb(197, 197, 197, .5);
+    border: 2px solid rgb(197, 197, 197);
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#loginButton:active {
+    background-color: rgb(197, 197, 197, .8);
+}
+
+#logoutButton {
+    height: 20px;
+    border-radius: 3px;
+    background-color: rgb(80, 80, 80, .4);
+    color: white;
+    margin: auto 0px
+}
+
+#logoutButton:hover {
+
+    background-color: rgb(80, 80, 80, .5); 
+}
+
+#lobby {
+    background-color:rgb(245, 245, 245, .8);
+    min-height: 500px;
+    width: 60%;
+    min-width: 300px;
+    max-width: 800px;
+    margin: auto;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 3px; 
+}
+
+#lobbyTitle {
+    color: rgba(3, 63, 50);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#games {
+    width: 90%;
+    margin: 20px auto 0px auto;
+    min-height: 200px;
+    background: rgba(150, 150, 150, 0.4);
+    padding: 10px;
+    overflow: auto;
+}
+
+#chatLog {
+    background-color: rgba(3, 63, 50, 0.6);
+    width: 90%;
+    height: 100px;
+    overflow: auto;
+    margin: auto;
+    list-style-type: none;
+    padding: 10px;
+    margin: 5px auto 0px auto;
+}
+
+.logItem {
+    font-size: 10px;
+    color: white;
+    margin: 3px;
+}
+
+#chatInputForm {
+    background-color: rgba(3, 63, 50, 0.8);
+    width: 90%;
+    padding: 5px 10px;
+    margin: auto
+}
+
+#chatInput {
+    background-color: transparent;
+    border-color: transparent;
+    width: 100%;
+    color: white;
+}
+#chatInput::placeholder {
+    color: white;
+}
+
+
+#newGameButton {
+    float: right;
+    width: 80px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 3px;
+    color: white;
+    background-color: rgb(80, 80, 80, .6); 
+    transition: all .05s ease-in-out; 
+}
+
+
+#newGameButton:hover {
+    background-color: rgb(80, 80, 80, .7); 
+    border: 2px solid rgb(197, 197, 197);
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#newGameButton:active {
+    background-color: rgb(80, 80, 80, .5); 
+}
+
+.gameItem {
+    width: 95%;
+    height: 25px;
+    background-color:rgb(80, 80, 80, .6);
+    padding: 10px;
+    margin: 5px auto;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+}
+.gameItem:hover {
+    background-color:rgb(80, 80, 80, .8);
+    padding: 10px;
+}
+
+.gameMetadata {
+    color: white;
+    font-size: 12px;
+    float: right;
+    text-align: right;
+}
+
+.gameIdentifier {
+    color: white;
+    font-size: 14px;
+}
