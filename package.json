@@ -1,6 +1,6 @@
 {
   "name": "teahouse2",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A first preact app.",
   "main": "main.js",
   "repository": {
@@ -8,9 +8,11 @@
     "url": "git+https://github.com/seth-rothschild/teahouse2.git"
   },
   "scripts": {
+    "start": "node server.js",
     "build": "webpack --progress --mode production",
     "watch": "webpack --progress --mode development --watch",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "signalhub": "echo 'Starting Signalhub' && node_modules/signalhub/bin.js listen -p 8000"
   },
   "jest": {
     "transform": {
@@ -29,9 +31,12 @@
   },
   "homepage": "https://github.com/seth-rothschild/teahouse2",
   "dependencies": {
+    "express": "^4.17.1",
     "preact": "^8.5.1",
     "signalhub": "^4.9.0",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -45,8 +50,6 @@
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-react": "^7.18.0",
-    "jest": "^25.1.0",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6"
+    "jest": "^25.1.0"
   }
 }

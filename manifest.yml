@@ -1,0 +1,4 @@
+---
+applications:
+- name: teahouse
+  memory: 128M
