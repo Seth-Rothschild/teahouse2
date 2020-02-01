@@ -2,6 +2,7 @@ import { h, Component, render } from 'preact'
   
 import signalhub from 'signalhub'
 import uuid from 'uuid/v4'
+import config from '../../config.json'
 
 export default class App extends Component {
     constructor(props) {
@@ -14,8 +15,12 @@ export default class App extends Component {
             chatContent: '',
             games: []
         }
-        this.hub = signalhub('teahouse2', ['http://localhost:8000'])
-        this.sabaki = 'file:///Users/seth/Desktop/Repositories/p2p-goban/index.html#'
+        if (process.env.NODE_ENV == 'production'){
+            this.hub = signalhub('teahouse', [config.signalhub.prod])
+        } else {
+            this.hub = signalhub('teahouse-local', [config.signalhub.local])
+        }
+        this.sabaki = config.sabaki
     }
     handleLogin(evt) {
         const { userName, userRank } = this.state
@@ -31,10 +36,12 @@ export default class App extends Component {
             })
         }
         this.setState({ visiblePage: 'lobby' })
+        this.hub.broadcast('loggedIn', { userName, userRank }, () => {})
     }
     handleLogout(evt) {
+        const { userName, userRank } = this.state
         this.setState({ visiblePage: 'loginPage' })
-
+        this.hub.broadcast('loggedOut', { userName, userRank }, () => {})
     }
 
     handleNewGame(evt) {
@@ -83,7 +90,21 @@ export default class App extends Component {
             }
             this.setState({ games })
         })
+        hub.subscribe('loggedIn').on('data',  (message) => {
+            const { userName, userRank } = message
+            if ( userName ) {
+                chatLog.push({ userName, userRank, chatContent: 'has joined' })
+            }
+            this.setState({ chatLog })
+        })
+        hub.subscribe('loggedOut').on('data',  (message) => {
+            const { userName, userRank } = message
 
+            if ( message.userName ) {
+                chatLog.push({ userName, userRank, chatContent: 'has left' })
+            }
+            this.setState({ chatLog })
+        })
     }
 
     // componentDidUpdate(_, prevState) {
@@ -102,7 +123,7 @@ export default class App extends Component {
                 h('form', { id: 'loginForm', onSubmit: this.handleLogin.bind(this) },
                     h('input', {
                         id: 'userName',
-                        placeholder: 'Your Name',
+                        placeholder: 'Firstname Lastname',
                         value: userName,
                         onInput: evt => this.setState({ userName: evt.currentTarget.value })
                     }),

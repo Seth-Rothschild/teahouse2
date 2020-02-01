@@ -47,9 +47,9 @@ describe('App', () => {
                             const expected = true
                             assert.equal(actual, expected)
                         })
-                        it('should have placeholder "Your Name"', () => {
+                        it('should have placeholder "Firstname Lastname"', () => {
                             const actual = wrapper.find('#userName').prop('placeholder')
-                            const expected = 'Your Name'
+                            const expected = 'Firstname Lastname'
                             assert.equal(actual, expected)
                         })
                         it('should have value state.userName', () => {
