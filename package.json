@@ -27,9 +27,9 @@
   "author": "Seth Rothschild",
   "license": "AGPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/seth-rothschild/teahouse2/issues"
+    "url": "https://github.com/seth-rothschild/teahousego/issues"
   },
-  "homepage": "https://github.com/seth-rothschild/teahouse2",
+  "homepage": "https://github.com/seth-rothschild/teahousego",
   "dependencies": {
     "express": "^4.17.1",
     "preact": "^8.5.1",

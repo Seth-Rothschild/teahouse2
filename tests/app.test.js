@@ -193,6 +193,18 @@ describe('App', () => {
                 const expected = 'lobby'
                 assert.equal(actual, expected)
             })
+            it('should broadcast loggedIn and send userName and userRank', () => {
+                const spy = jest.fn()
+                const instance = wrapper.instance()
+                instance.hub.broadcast = spy
+                instance.handleLogin({ preventDefault: () => {} })
+                
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.equal(actual[0][0], 'loggedIn')
+                assert.exists(actual[0][1]['userName'])
+                assert.exists(actual[0][1]['userRank'])
+            })
         })
         describe('handleLogout', () => {
             it('should exist', () => {
@@ -205,12 +217,94 @@ describe('App', () => {
                 const actual = wrapper.state('visiblePage')
                 const expected = 'loginPage'
                 assert.equal(actual, expected)
-            })   
+            }) 
+            it('should broadcast loggedOut with userName and userRank', () => {
+                const spy = jest.fn()
+                const instance = wrapper.instance()
+                instance.hub.broadcast = spy
+                instance.handleLogout()
+                
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.equal(actual[0][0], 'loggedOut')
+                assert.exists(actual[0][1]['userName'])
+                assert.exists(actual[0][1]['userRank'])
+            })
         })
+
+        describe('handleNewGame', () => {
+            it('should exist', () => {
+                const actual = (wrapper.instance().handleNewGame)
+                assert.exists(actual)
+            })
+            it('should set open a window to this.sabaki + gameId', () => {
+                const spy = jest.fn()
+                global.open = spy
+                const instance = wrapper.instance()
+                instance.sabaki = 'https://fake'
+                instance.handleNewGame({ preventDefault: () => {} })
+
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.include(actual[0][0], 'https://fake')
+                assert.include(actual[0][1], 'gameWindow')
+            }) 
+            it('should broadcast gameClick with gameId, userName and dateCreated', () => {
+                const spy = jest.fn()
+                const instance = wrapper.instance()
+                global.open = () => {}
+                instance.hub.broadcast = spy
+                instance.handleNewGame()
+                
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.equal(actual[0][0], 'gameClick')
+                assert.exists(actual[0][1]['gameId'])
+                assert.exists(actual[0][1]['userName'])
+                assert.exists(actual[0][1]['dateCreated'])
+
+
+            })
+        })
+
+        describe('handleGameClick', () => {
+            it('should exist', () => {
+                const actual = (wrapper.instance().handleGameClick)
+                assert.exists(actual)
+            })
+            it('should set open a window to this.sabaki + gameId', () => {
+                const spy = jest.fn()
+                global.open = spy
+                const instance = wrapper.instance()
+                instance.sabaki = 'https://fake'
+                const g = { gameId: '', userName: '', dateCreated: '' }
+                instance.handleGameClick(g)({ preventDefault: () => {} })
+
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.include(actual[0][0], 'https://fake')
+                assert.include(actual[0][1], 'gameWindow')
+            }) 
+            it('should broadcast gameClick with gameId, userName and dateCreated', () => {
+                const spy = jest.fn()
+                global.open = () => {}
+                const instance = wrapper.instance()
+                instance.hub.broadcast = spy
+                const g = { gameId: '', userName: '', dateCreated: '' }
+                instance.handleGameClick(g)()
+                
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.equal(actual[0][0], 'gameClick')
+                assert.exists(actual[0][1]['gameId'])
+                assert.exists(actual[0][1]['userName'])
+                assert.exists(actual[0][1]['dateCreated'])
+            })
+        })
+
         describe('sendMessage', () => {
             it('should exist', () => {
-                const actual = (wrapper.instance().sendMessage)
-                assert.exists(actual)
+                assert.exists(wrapper.instance().sendMessage)
             })
             it('should call preventdefault', () => {
                 const spy = jest.fn()
@@ -220,13 +314,39 @@ describe('App', () => {
                 assert.equal(actual, expected)
                 
             })
-            // it('should set append chatContent to chatLog', () => {
-            //     wrapper.setState({ chatContent: 'hi' })
-            //     wrapper.instance().sendMessage({ preventDefault: () => {} })
-            //     const actual = wrapper.state('chatLog')[0]
-            //     const expected = 'hi'
-            //     assert.equal(actual, expected)
-            // })   
+            it('should set state.chatContent to empty', () => {
+                const chatContent = 'Hello world!'
+                wrapper.setState({ chatContent })
+                wrapper.instance().sendMessage({ preventDefault: () => {} })
+                const actual = wrapper.state('chatContent')
+                assert.equal(actual, '')
+            })
+            it('should broadcast sendMessage with userName, userRank and chatContent', () => {
+                const spy = jest.fn()
+                const instance = wrapper.instance()
+                instance.hub.broadcast = spy
+                instance.sendMessage({ preventDefault: () => {} })
+                
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 1)
+                assert.equal(actual[0][0], 'sendMessage')
+                assert.exists(actual[0][1]['userName'])
+                assert.exists(actual[0][1]['userRank'])
+                assert.exists(actual[0][1]['chatContent'])
+            })
+
+        })
+
+        describe('getSubscriptions', () => {
+            it('should subscribe to subscriptions', () => {
+                const spy = jest.fn()
+                const instance = wrapper.instance()
+                instance.hub.subscribe = spy
+                instance.getSubscriptions()
+                const actual = spy.mock.calls
+                assert.equal(actual.length, 4)
+                
+            })    
         })
     })  
 })

@@ -70,18 +70,34 @@ export default class App extends Component {
         hub.broadcast('sendMessage', { userName, userRank, chatContent }, () => {
         })
     }
-    componentDidMount() {
+
+    getSubscriptions() {
         const { hub } = this
+
+        const sendMessage = hub.subscribe('sendMessage')
+        const gameClick = hub.subscribe('gameClick')
+        const loggedIn = hub.subscribe('loggedIn')
+        const loggedOut = hub.subscribe('loggedOut')
+
+        return { sendMessage, gameClick, loggedIn, loggedOut }
+        
+    }
+
+    componentDidMount() {
+
+        const subscriptions = this.getSubscriptions()
         const { visiblePage, chatLog } = this.state
         
         if (visiblePage === '') { this.setState({ visiblePage: 'loginPage' })}
-        hub.subscribe('sendMessage').on('data',  (message) => {
+
+        subscriptions.sendMessage.on('data',  (message) => {
             if ( message.chatContent ) {
                 chatLog.push(message)
             }
             this.setState({ chatLog })
         })
-        hub.subscribe('gameClick').on('data', (message) => {
+
+        subscriptions.gameClick.on('data', (message) => {
             const { gameId } = message
             let { games } = this.state
             const gameIds = games.map(g => g.gameId)
@@ -90,14 +106,16 @@ export default class App extends Component {
             }
             this.setState({ games })
         })
-        hub.subscribe('loggedIn').on('data',  (message) => {
+
+        subscriptions.loggedIn.on('data',  (message) => {
             const { userName, userRank } = message
             if ( userName ) {
                 chatLog.push({ userName, userRank, chatContent: 'has joined' })
             }
             this.setState({ chatLog })
         })
-        hub.subscribe('loggedOut').on('data',  (message) => {
+        
+        subscriptions.loggedOut.on('data',  (message) => {
             const { userName, userRank } = message
 
             if ( message.userName ) {
@@ -106,9 +124,6 @@ export default class App extends Component {
             this.setState({ chatLog })
         })
     }
-
-    // componentDidUpdate(_, prevState) {
-    // }
 
 
     render() {
