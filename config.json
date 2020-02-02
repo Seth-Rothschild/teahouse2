@@ -1,0 +1,7 @@
+{
+    "signalhub": {
+        "local": "http://localhost:8000",
+        "prod": "http://localhost:8000"
+    },
+    "sabaki": "yourlocalp2pgobanhere"
+}
