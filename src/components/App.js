@@ -48,7 +48,7 @@ export default class App extends Component {
         const { userName } = this.state
         let gameId = uuid()
         const dateCreated = new Date().toLocaleString()
-        window.open(this.sabaki+`${gameId}`, `gameWindow${gameId}`)
+        window.open(this.sabaki+`${gameId}`, '_blank')
         this.hub.broadcast('gameClick', { gameId, userName, dateCreated }, () => {})
     }
 
@@ -56,7 +56,6 @@ export default class App extends Component {
         return () => {
             const { gameId, userName, dateCreated } = g
             this.hub.broadcast('gameClick', { gameId, userName, dateCreated }, () => {})
-            window.open(this.sabaki+`${gameId}`, `gameWindow${gameId}`)
         }
     }
 
@@ -167,9 +166,11 @@ export default class App extends Component {
                 ),
 
                 h('div', { id: 'games' }, 
-                    games.map((g) => h('div', 
+                    games.map((g) => h('a', 
                         {
                             class: 'gameItem',
+                            href: this.sabaki+`${g.gameId}`,
+                            target: '_blank',
                             onClick: this.handleGameClick.bind(this)(g)
                         }, 
                         h('div', { class: 'gameIdentifier' }, `Game ${g.gameId.slice(0, 4)}`),
