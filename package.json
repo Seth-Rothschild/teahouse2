@@ -12,6 +12,7 @@
     "build": "webpack --progress --mode production",
     "watch": "webpack --progress --mode development --watch",
     "test": "jest --coverage",
+    "cypress": "npm start & cypress open",
     "signalhub": "echo 'Starting Signalhub' && node_modules/signalhub/bin.js listen -p 8000"
   },
   "jest": {
@@ -31,6 +32,7 @@
   },
   "homepage": "https://github.com/seth-rothschild/teahousego",
   "dependencies": {
+    "cypress": "^4.0.1",
     "express": "^4.17.1",
     "preact": "^8.5.1",
     "signalhub": "^4.9.0",
