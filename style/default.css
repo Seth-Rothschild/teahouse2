@@ -81,8 +81,6 @@ body {
 .text-block {
     display: flex;
     border-bottom: 1px solid #ddd;
-    background-color: #e8efed;
-
 }
 
 .text-section {
@@ -113,8 +111,27 @@ body {
     width: 50%
 }
 
+#first-section {
+    height: 300px;
+    background-color: #e8efed;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
 #second-section {
-    background-color: #d3dad7
+    margin-top: 300px;
+    background-color: #d3dad7;
+    position: absolute;
+    width: 100%;
+    height: 325px;
+    left: 0;
+}
+#footer {
+    text-align: center;
+    font-size: .8em;
+    margin-top: 620px;
+    padding: 10px;
 }
 
 #second-section-left {
@@ -159,11 +176,7 @@ body {
     width:200px
 }
 
-#footer {
-    text-align: center;
-    font-size: .8em;
-    
-}
+
 
 
 

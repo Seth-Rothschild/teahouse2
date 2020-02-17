@@ -145,7 +145,7 @@ export default class App extends Component {
                         onClick: this.handleLogin.bind(this)
                     }, 'Visit Lobby'),
                 ),
-                h('div', { class: 'text-block' },
+                h('div', { class: 'text-block', id: 'first-section' },
                     h('div', { id: 'first-section-left', class: 'text-section' }, 
                         h('h3', {}, 'Beginner Friendly'),
                         h('p', {}, 'No users, no ranks, just Go. Like an ordinary club  we don\'t store user data. Your focus here should be on learning and having fun.'),
@@ -165,8 +165,8 @@ export default class App extends Component {
                     ),
                     h('div', { id: 'second-segment-right', class: 'text-section' },
                         h('h3', {}, 'Play with Sabaki'),
-                        h('p', {}, 'Use a deployed fork of Sabaki Web to play online.'),
-                        h('p', {}, 'Our boards don\'t require a login, so you can play online with anyone however you like.')
+                        h('p', {}, 'Use a deployed fork of Sabaki Web to play Go online. Game trees are sent out to everyone viewing the board at a given link with no controls over who is and isn\'t allowed to control the board.'),
+                        h('p', {}, 'Our boards also don\'t require a user account, so you can play with anyone anytime, without any setup.')
                     )
                 ),
  
