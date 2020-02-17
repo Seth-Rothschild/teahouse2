@@ -165,7 +165,7 @@ export default class App extends Component {
                     ),
                     h('div', { id: 'second-segment-right', class: 'text-section' },
                         h('h3', {}, 'Play with Sabaki'),
-                        h('p', {}, 'Use Sabaki Web to play online.'),
+                        h('p', {}, 'Use a deployed fork of Sabaki Web to play online.'),
                         h('p', {}, 'Our boards don\'t require a login, so you can play online with anyone however you like.')
                     )
                 ),
@@ -240,6 +240,13 @@ export default class App extends Component {
         return h('div', { class: 'app-view' },
             ( visiblePage === 'loginPage' && loginPage ), 
             ( visiblePage === 'lobby' && lobby ), 
+            h('div', {id: 'footer'}, 
+                h('a', { href: 'https://github.com/Seth-Rothschild/teahousego' }, 'Github'),
+                h('span', {}, ' | '),
+                h('a', { href:'https://github.com/Seth-Rothschild/teahousego/issues' }, 'Feature Requests'),
+                h('span', {}, ' | '),
+                h('a', { href:'https://github.com/Seth-Rothschild/p2p-goban' }, 'Sabaki Fork')
+            )
         )
     }
 }

@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/seth-rothschild/teahousego",
   "dependencies": {
-    "cypress": "^4.0.1",
     "express": "^4.17.1",
     "preact": "^8.5.1",
     "signalhub": "^4.9.0",

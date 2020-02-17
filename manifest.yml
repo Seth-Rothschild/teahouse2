@@ -2,5 +2,5 @@
 applications:
 - name: teahouse
   memory: 150M
-  command: npm run build && npm start
+  command: npm start
   instances: 1

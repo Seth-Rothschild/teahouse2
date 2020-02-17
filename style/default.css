@@ -159,7 +159,11 @@ body {
     width:200px
 }
 
-
+#footer {
+    text-align: center;
+    font-size: .8em;
+    
+}
 
 
 
