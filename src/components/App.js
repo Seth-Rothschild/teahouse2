@@ -25,9 +25,10 @@ export default class App extends Component {
     handleLogin(evt) {
         const { userName, userRank } = this.state
         evt.preventDefault()
+
         if (userName === '') {
             this.setState({ 
-                userName: 'Guest',
+                userName: 'Guest ' + uuid().slice(0, 4),
             })
         } 
         if (userRank === '') {
@@ -133,31 +134,64 @@ export default class App extends Component {
         const loginPage = (
 
             h('div', { id: 'loginPage' }, 
-                h('h2', { id: 'title' }, 'Welcome to Teahouse Go!'),
-                h('form', { id: 'loginForm', onSubmit: this.handleLogin.bind(this) },
-                    h('input', {
-                        id: 'userName',
-                        placeholder: 'Firstname Lastname',
-                        value: userName,
-                        onInput: evt => this.setState({ userName: evt.currentTarget.value })
-                    }),
-                    h('input', {
-                        id: 'userRank',
-                        placeholder: 'Rank (e.g. 20k)',
-                        value: userRank,
-                        onInput: evt => this.setState({ userRank: evt.currentTarget.value })
-                    }),
+                h('div', { id: 'titlebar-background' }, 
+                ),
+                h('h1', { id: 'title' }, 'Teahouse'),
+                h('h2', { id: 'subtitle' }, 'A Social Go Server'),
+
+                h('div', { id: 'button-container' },
                     h('button', {
-                        id: 'loginButton'
-                    }, 'Log In'),
-                )
+                        id: 'loginButton',
+                        onClick: this.handleLogin.bind(this)
+                    }, 'Visit Lobby'),
+                ),
+                h('div', { class: 'text-block' },
+                    h('div', { id: 'first-section-left', class: 'text-section' }, 
+                        h('h3', {}, 'Beginner Friendly'),
+                        h('p', {}, 'No users, no ranks, just Go. Like an ordinary club  we don\'t store user data. Your focus here should be on learning and having fun.'),
+                        h('p', {}, 'This site is beginner friendly. Design choices are made with both new players and expert players in mind.'),
+
+                    ),
+                    h('div', { id: 'first-section-right', class: 'image-section' },
+                        h('img', { class: 'image' , src: 'chatexample.jpeg' })
+                    ), 
+                ),
+                h('div', { class: 'text-block', id: 'second-section' },
+                    h('div', { id: 'second-section-left', class: 'image-section' },
+
+                        h('img', { id: 'gameplay', class: 'image' , src: 'gameplay2.gif' })
+
+
+                    ),
+                    h('div', { id: 'second-segment-right', class: 'text-section' },
+                        h('h3', {}, 'Play with Sabaki'),
+                        h('p', {}, 'Use Sabaki Web to play online.'),
+                        h('p', {}, 'Our boards don\'t require a login, so you can play online with anyone however you like.')
+                    )
+                ),
+ 
             )
         )
 
         const lobby =  (
             h('div', { id: 'lobby' },
                 h('div', { id: 'lobbyTitle' },
-                    h('h3', {}, 'Teahouse Go'),
+                    h('div', { id: 'title-box' },
+                        h('h3', {}, 'Teahouse Go'),
+                        h('input', {
+                            id: 'userName',
+                            placeholder: 'Name',
+                            value: userName,
+                            onInput: evt => this.setState({ userName: evt.currentTarget.value })
+                        }),
+                        h('input', {
+                            id: 'userRank',
+                            placeholder: 'Rank (e.g. 20k)',
+                            value: userRank,
+                            onInput: evt => this.setState({ userRank: evt.currentTarget.value })
+                        }),
+                    ),
+                   
                     h('button', { 
                         id: 'logoutButton',
                         onClick: this.handleLogout.bind(this)
@@ -204,10 +238,8 @@ export default class App extends Component {
         )
 
         return h('div', { class: 'app-view' },
-            h('div', { class: 'main-view' }, 
-                ( visiblePage === 'loginPage' && loginPage ), 
-                ( visiblePage === 'lobby' && lobby ), 
-            )            
+            ( visiblePage === 'loginPage' && loginPage ), 
+            ( visiblePage === 'lobby' && lobby ), 
         )
     }
 }
