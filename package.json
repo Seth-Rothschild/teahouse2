@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/seth-rothschild/teahousego",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "preact": "^8.5.1",
     "signalhub": "^4.9.0",
     "uuid": "^3.4.0",
